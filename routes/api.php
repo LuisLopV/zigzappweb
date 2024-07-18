@@ -37,10 +37,10 @@ Route::middleware('auth:api')->group(function () {
 
 //Rutas api travel
 
-    Route::middleware('auth:api')->group(function () {
-        Route::resource('travels', TravelController::class)->only(['index', 'store', 'show']);
-        Route::patch('travels/{travel}/accept', [TravelController::class, 'accept']);
-        Route::patch('travels/{travel}/complete', [TravelController::class, 'complete']);
-        Route::post('/travels/rate', [TravelController::class, 'rate']);
+Route::prefix('api')->middleware('auth:api')->group(function () {
+    Route::resource('travels', TravelController::class)->only(['index', 'store', 'show']);
+    Route::patch('travels/{travel}/accept', [TravelController::class, 'accept']);
+    Route::patch('travels/{travel}/complete', [TravelController::class, 'complete']);
+    Route::post('/travels/rate', [TravelController::class, 'rate']);
 });
 
