@@ -38,9 +38,12 @@ Route::middleware('auth:api')->group(function () {
 //Rutas api travel
 
 Route::prefix('api')->middleware('auth:api')->group(function () {
-    Route::resource('travels', TravelController::class)->only(['index', 'store', 'show']);
-    Route::patch('travels/{travel}/accept', [TravelController::class, 'accept']);
-    Route::patch('travels/{travel}/complete', [TravelController::class, 'complete']);
-    Route::post('/travels/rate', [TravelController::class, 'rate']);
+    Route::get('travels', [TravelController::class, 'apiIndex'])->name('api.travels.index');
+    Route::post('travels', [TravelController::class, 'apiStore'])->name('api.travels.store');
+    Route::get('travels/{travel}', [TravelController::class, 'apiShow'])->name('api.travels.show');
+    
+    Route::patch('travels/{travel}/accept', [TravelController::class, 'apiAccept'])->name('api.travels.accept');
+    Route::patch('travels/{travel}/complete', [TravelController::class, 'apiComplete'])->name('api.travels.complete');
+    Route::post('/travels/rate', [TravelController::class, 'apiRate'])->name('api.travels.rate');
 });
 
